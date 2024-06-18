@@ -4,7 +4,7 @@ import { Heading, HeroSection, HomeContainer, Info, Menu } from "./styles";
 import imageHero from "../../assets/ImagemHero.png";
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 
-import { Card } from "../../components/Card";
+import { Card } from "../../components/CardHome";
 
 import data from "../../../data.json";
 

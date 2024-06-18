@@ -3,8 +3,8 @@ import { CounterContainer } from "./style";
 
 interface CounterProps {
   number: number;
-  increase: () => void;
-  decrease: () => void;
+  increase?: () => void;
+  decrease?: () => void;
 }
 
 export function Counter({ number, increase, decrease }: CounterProps) {
