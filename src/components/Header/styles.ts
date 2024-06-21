@@ -59,17 +59,17 @@ export const ShoppingCartContainer = styled.div`
     font-size: 0.75rem;
     font-weight: bold;
   }
-`;
 
-export const ShoppingCartLink = styled.a`
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  background: ${(props) => props.theme["yellow-light"]};
-  border-radius: 6px;
-  z-index: 1;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: ${(props) => props.theme["yellow-light"]};
+    border-radius: 6px;
+    z-index: 1;
 
-  svg {
-    color: ${(props) => props.theme["yellow-dark"]};
+    svg {
+      color: ${(props) => props.theme["yellow-dark"]};
+    }
   }
 `;

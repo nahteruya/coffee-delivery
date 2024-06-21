@@ -70,7 +70,7 @@ export const Dinamic = styled.div`
     }
   }
 
-  > button {
+  > a {
     display: flex;
     align-items: center;
     border: none;

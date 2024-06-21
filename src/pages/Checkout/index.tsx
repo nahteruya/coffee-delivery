@@ -12,8 +12,12 @@ import {
   TextInput,
 } from "./styles";
 import { CardCheckout } from "../../components/CardCheckout";
+import { useContext } from "react";
+import { CartItemsContext } from "../../context/CartItemsContext";
 
 export function Checkout() {
+  const { coffeesInCart } = useContext(CartItemsContext);
+
   return (
     <CheckoutContainer>
       <div>
@@ -99,7 +103,13 @@ export function Checkout() {
       <div>
         <h2>Cafés selecionados</h2>
         <CheckoutInfoContainer>
-          <CardCheckout />
+          {coffeesInCart.map((coffeInCart) => (
+            <CardCheckout
+              key={coffeInCart.coffee.id}
+              coffeeItem={coffeInCart}
+            />
+          ))}
+
           <PricesInfo>
             <div>
               <span>Total de itens</span>

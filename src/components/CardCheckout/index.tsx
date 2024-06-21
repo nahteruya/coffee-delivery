@@ -1,18 +1,23 @@
 import { Trash } from "@phosphor-icons/react";
-import data from "../../../data.json";
 import { Counter } from "../Counter";
 import { CoffeeInfo, Container, Dinamic } from "./styles";
+import { CoffeeCart } from "../../context/CartItemsContext";
 
-export function CardCheckout() {
-  const coffees = data.coffees[0];
+interface CardCheckoutProps {
+  coffeeItem: CoffeeCart;
+}
+
+export function CardCheckout({ coffeeItem }: CardCheckoutProps) {
+  const { coffee, quantity } = coffeeItem;
+
   return (
     <Container>
       <CoffeeInfo>
-        <img src={coffees.image} alt={coffees.title} />
+        <img src={coffee.image} alt={coffee.title} />
         <div>
-          <span>{coffees.title}</span>
+          <span>{coffee.title}</span>
           <Dinamic>
-            <Counter number={0} />
+            <Counter coffeeId={coffee.id} initialQuantity={quantity} />
             <button>
               <Trash size={20} />
               REMOVER
@@ -20,7 +25,7 @@ export function CardCheckout() {
           </Dinamic>
         </div>
       </CoffeeInfo>
-      <strong>R$ {coffees.price.toFixed(2)}</strong>
+      <strong>R$ {coffee.price.toFixed(2)}</strong>
     </Container>
   );
 }
