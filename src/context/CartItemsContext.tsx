@@ -17,7 +17,9 @@ export interface CoffeeCart {
 interface CartItemsContextType {
   coffeesInCart: CoffeeCart[];
   addCoffeeInCart: (newCoffeeItem: CoffeeCart) => void;
-  updateQuantity: (coffeeId: string, quantity: number) => void;
+  removeCoffeeFromCart: (coffeeItemId: string) => void;
+  increaseCoffeeQuantity: (coffeeItemId: string) => void;
+  decreaseCoffeeQuantity: (coffeeItemId: string) => void;
 }
 
 interface CartItemsContextProviderProps {
@@ -38,11 +40,30 @@ export function CartItemsContextProvider({
     ]);
   }
 
-  function updateQuantity(coffeeId: string, quantity: number) {
+  function removeCoffeeFromCart(coffeeItemId: string) {
+    const newCoffeesInCart = coffeesInCart.filter(
+      (item) => item.coffee.id !== coffeeItemId
+    );
+    setCoffeesInCart(newCoffeesInCart);
+  }
+
+  function increaseCoffeeQuantity(coffeeItemId: string) {
     setCoffeesInCart((prevCoffeesInCart) =>
       prevCoffeesInCart.map((coffeeInCart) => {
-        if (coffeeInCart.coffee.id === coffeeId) {
-          return { ...coffeeInCart, quantity: quantity };
+        if (coffeeInCart.coffee.id === coffeeItemId) {
+          return { ...coffeeInCart, quantity: coffeeInCart.quantity + 1 };
+        } else {
+          return coffeeInCart;
+        }
+      })
+    );
+  }
+
+  function decreaseCoffeeQuantity(coffeeItemId: string) {
+    setCoffeesInCart((prevCoffeesInCart) =>
+      prevCoffeesInCart.map((coffeeInCart) => {
+        if (coffeeInCart.coffee.id === coffeeItemId) {
+          return { ...coffeeInCart, quantity: coffeeInCart.quantity - 1 };
         } else {
           return coffeeInCart;
         }
@@ -52,7 +73,13 @@ export function CartItemsContextProvider({
 
   return (
     <CartItemsContext.Provider
-      value={{ coffeesInCart, addCoffeeInCart, updateQuantity }}
+      value={{
+        coffeesInCart,
+        addCoffeeInCart,
+        removeCoffeeFromCart,
+        increaseCoffeeQuantity,
+        decreaseCoffeeQuantity,
+      }}
     >
       {children}
     </CartItemsContext.Provider>

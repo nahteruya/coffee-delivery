@@ -1,42 +1,24 @@
 import { Minus, Plus } from "@phosphor-icons/react";
 import { CounterContainer } from "./style";
-import { useContext, useState } from "react";
-import { CartItemsContext } from "../../context/CartItemsContext";
 
 interface CounterProps {
-  coffeeId: string;
-  initialQuantity: number;
+  quantity: number;
+  increaseQuantity: () => void;
+  decreaseQuantity: () => void;
 }
 
-export function Counter({ coffeeId, initialQuantity }: CounterProps) {
-  const { updateQuantity } = useContext(CartItemsContext);
-  const [quantity, setQuantity] = useState(initialQuantity);
-
-  function handleDecreaseQuantity() {
-    if (quantity > 0) {
-      setQuantity((prevQuantity) => {
-        const newQuantity = prevQuantity - 1;
-        updateQuantity(coffeeId, newQuantity);
-        return newQuantity;
-      });
-    }
-  }
-
-  function handleIncreaseQuantity() {
-    setQuantity((prevQuantity) => {
-      const newQuantity = prevQuantity + 1;
-      updateQuantity(coffeeId, newQuantity);
-      return newQuantity;
-    });
-  }
-
+export function Counter({
+  quantity,
+  increaseQuantity,
+  decreaseQuantity,
+}: CounterProps) {
   return (
     <CounterContainer>
-      <button onClick={handleDecreaseQuantity}>
+      <button onClick={decreaseQuantity}>
         <Minus size={14} />
       </button>
       <span>{quantity}</span>
-      <button onClick={handleIncreaseQuantity}>
+      <button onClick={increaseQuantity}>
         <Plus size={14} />
       </button>
     </CounterContainer>

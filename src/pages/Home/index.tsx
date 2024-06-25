@@ -11,6 +11,7 @@ import data from "../../../data.json";
 export function Home() {
   const theme = useTheme();
   const { coffees } = data;
+
   return (
     <HomeContainer>
       <HeroSection>
@@ -67,7 +68,7 @@ export function Home() {
         <h2>Nossos cafés</h2>
         <ul>
           {coffees.map((coffee) => (
-            <Card key={coffee.id} coffee={{ coffee: coffee, quantity: 0 }} />
+            <Card key={coffee.id} coffee={coffee} />
           ))}
         </ul>
       </Menu>

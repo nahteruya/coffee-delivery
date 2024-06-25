@@ -3,40 +3,49 @@ import { Counter } from "../Counter";
 import { CardContainer, CoffeeImage, Dinamic, Tags } from "./styles";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  CartItemsContext,
-  Coffee,
-  CoffeeCart,
-} from "../../context/CartItemsContext";
+import { CartItemsContext, Coffee } from "../../context/CartItemsContext";
 
 interface CardProp {
-  coffee: CoffeeCart;
+  coffee: Coffee;
 }
 
 export function Card({ coffee }: CardProp) {
+  const [quantity, setQuantity] = useState(0);
   const { addCoffeeInCart } = useContext(CartItemsContext);
 
   function handleAddCoffeeInCart() {
-    addCoffeeInCart({ coffee: coffee.coffee, quantity: coffee.quantity });
+    addCoffeeInCart({ coffee: coffee, quantity });
+  }
+
+  function handleIncreaseQuantity() {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  }
+
+  function handleDecreaseQuantity() {
+    setQuantity((prevQuantity) => {
+      if (prevQuantity > 0) return prevQuantity - 1;
+      return 0;
+    });
   }
 
   return (
     <CardContainer>
-      <CoffeeImage src={coffee.coffee.image} alt={coffee.coffee.title} />
+      <CoffeeImage src={coffee.image} alt={coffee.title} />
       <Tags>
-        {coffee.coffee.tags.map((tag) => (
-          <span>{tag}</span>
+        {coffee.tags.map((tag) => (
+          <span key={coffee.tags.indexOf(tag)}>{tag}</span>
         ))}
       </Tags>
-      <h3>{coffee.coffee.title}</h3>
-      <span>{coffee.coffee.description}</span>
+      <h3>{coffee.title}</h3>
+      <span>{coffee.description}</span>
       <Dinamic>
         <span>
-          R$ <strong>{coffee.coffee.price.toFixed(2)}</strong>
+          R$ <strong>{coffee.price.toFixed(2)}</strong>
         </span>
         <Counter
-          coffeeId={coffee.coffee.id}
-          initialQuantity={coffee.quantity}
+          quantity={quantity}
+          increaseQuantity={handleIncreaseQuantity}
+          decreaseQuantity={handleDecreaseQuantity}
         />
         <Link to="/checkout" onClick={handleAddCoffeeInCart}>
           <ShoppingCart size={22} />
