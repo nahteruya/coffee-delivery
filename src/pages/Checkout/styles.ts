@@ -73,7 +73,7 @@ export const AddressForm = styled.div`
     "bairro cidade uf";
 `;
 
-export const TextInput = styled.input`
+/* export const TextInput = styled.input`
   height: 42px;
   background: ${(props) => props.theme["base-input"]};
   border: 1px solid ${(props) => props.theme["base-button"]};
@@ -86,14 +86,14 @@ export const TextInput = styled.input`
     font-weight: normal;
     color: ${(props) => props.theme["base-label"]};
   }
-`;
+`; */
 
 export const PaymentForm = styled.div`
   display: flex;
   gap: 12px;
 `;
 
-export const Radio = styled.label`
+/* export const Radio = styled.label`
   display: flex;
   gap: 12px;
   align-items: center;
@@ -114,7 +114,7 @@ export const Radio = styled.label`
     background: ${(props) => props.theme["purple-light"]};
     border: 1px solid ${(props) => props.theme["purple"]};
   }
-`;
+`; */
 
 export const CheckoutInfoContainer = styled.div`
   padding: 2.5rem;
@@ -122,7 +122,7 @@ export const CheckoutInfoContainer = styled.div`
   border-radius: 6px 44px 6px 44px;
   width: 448px;
 
-  > button {
+  a > button {
     width: 100%;
     border: none;
     background: ${(props) => props.theme["yellow"]};
