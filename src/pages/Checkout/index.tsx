@@ -5,6 +5,7 @@ import {
   CheckoutContainer,
   CheckoutInfoContainer,
   InfoContainer,
+  PaymentError,
   PaymentForm,
   PaymentHeading,
   PricesInfo,
@@ -32,10 +33,10 @@ const checkoutFormValidationSchema = zod.object({
   }),
 });
 
-type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>;
+export type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>;
 
 export function Checkout() {
-  const { coffeesInCart } = useContext(CartItemsContext);
+  const { coffeesInCart, checkout } = useContext(CartItemsContext);
 
   const checkoutForm = useForm<checkoutFormData>({
     resolver: zodResolver(checkoutFormValidationSchema),
@@ -49,11 +50,7 @@ export function Checkout() {
   } = checkoutForm;
 
   function handleSubmitCheckoutForm(data: checkoutFormData) {
-    if (coffeesInCart.length === 0) {
-      return alert("É preciso ter pelo menos um item no carrinho");
-    }
-
-    console.log(data);
+    checkout(data);
   }
 
   function calculateTotalPrice() {
@@ -162,6 +159,9 @@ export function Checkout() {
                 DINHEIRO
               </Radio>
             </PaymentForm>
+            {errors.metodoDePagamento && (
+              <PaymentError>{errors.metodoDePagamento.message}</PaymentError>
+            )}
           </InfoContainer>
         </form>
       </div>
@@ -191,11 +191,9 @@ export function Checkout() {
               )}`}</span>
             </div>
           </PricesInfo>
-          <Link to="/success">
-            <button type="submit" form="order">
-              CONFIRMAR PEDIDO
-            </button>
-          </Link>
+          <button type="submit" form="order">
+            CONFIRMAR PEDIDO
+          </button>
         </CheckoutInfoContainer>
       </div>
     </CheckoutContainer>

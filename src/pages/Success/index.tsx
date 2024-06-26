@@ -8,9 +8,26 @@ import {
   SuccessText,
 } from "./styles";
 import { useTheme } from "styled-components";
+import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { CartItemsContext } from "../../context/CartItemsContext";
 
 export function Success() {
   const theme = useTheme();
+  const { orderId } = useParams();
+  const { orders } = useContext(CartItemsContext);
+
+  const currentOrder = orders.find((item) => item.id === Number(orderId));
+  if (!currentOrder?.id) {
+    return null;
+  }
+
+  const paymentMethod = {
+    credit: "Cartão de crédito",
+    debit: "Cartão de débito",
+    cash: "Dinheiro",
+  };
+
   return (
     <SuccessContainer>
       <SuccessContent>
@@ -25,8 +42,11 @@ export function Success() {
                 style={{ background: theme["purple"] }}
               />
               <span>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>{" "}
-                Farrapos - Porto Alegre, RS
+                Entrega em{" "}
+                <strong>
+                  {currentOrder.rua}, {currentOrder.numero}
+                </strong>{" "}
+                {currentOrder.bairro} - {currentOrder.cidade},{currentOrder.uf}
               </span>
             </OrderInfo>
             <OrderInfo>
@@ -48,7 +68,7 @@ export function Success() {
               />
               <div>
                 <span>Pagamento na entrega</span>
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentMethod[currentOrder.metodoDePagamento]}</strong>
               </div>
             </OrderInfo>
           </ConfirmationBox>
