@@ -1,7 +1,7 @@
 import { HeaderContainer, LocationTag, ShoppingCartContainer } from "./styles";
 import logoCoffeeDelivery from "../../assets/Logo.png";
 import { MapPin, ShoppingCart } from "@phosphor-icons/react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { CartItemsContext } from "../../context/CartItemsContext";
 
@@ -14,7 +14,9 @@ export function Header() {
 
   return (
     <HeaderContainer>
-      <img src={logoCoffeeDelivery} alt="Coffee Delivery" height={40} />
+      <Link to="/">
+        <img src={logoCoffeeDelivery} alt="Coffee Delivery" height={40} />
+      </Link>
       <nav>
         <LocationTag>
           <MapPin size={22} weight="fill" />

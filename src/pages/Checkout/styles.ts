@@ -91,30 +91,15 @@ export const AddressForm = styled.div`
 export const PaymentForm = styled.div`
   display: flex;
   gap: 12px;
+  margin-bottom: 8px;
 `;
 
-/* export const Radio = styled.label`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 16px;
-  border-radius: 6px;
-  background: ${(props) => props.theme["base-button"]};
-
+export const PaymentError = styled.span`
   font-size: 0.75rem;
-  font-weight: normal;
-  line-height: 1.6;
-  color: ${(props) => props.theme["base-text"]};
-
-  svg {
-    color: ${(props) => props.theme["purple"]};
-  }
-
-  :active {
-    background: ${(props) => props.theme["purple-light"]};
-    border: 1px solid ${(props) => props.theme["purple"]};
-  }
-`; */
+  font-weight: 400;
+  color: red;
+  padding: 0 0.75rem;
+`;
 
 export const CheckoutInfoContainer = styled.div`
   padding: 2.5rem;
@@ -122,7 +107,7 @@ export const CheckoutInfoContainer = styled.div`
   border-radius: 6px 44px 6px 44px;
   width: 448px;
 
-  a > button {
+  > button {
     width: 100%;
     border: none;
     background: ${(props) => props.theme["yellow"]};
